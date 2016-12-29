@@ -17,6 +17,15 @@
   "author": "GitHub",
   "license": "CC0-1.0",
   "devDependencies": {
-    "electron": "^1.4.1"
+    "electron": "^1.4.13",
+    "electron-builder": "^10.13.1",
+    "electron-rebuild": "^1.4.0"
+  },
+  "build": {
+    "appId": "io.atom.electron.quick-start.fork-bug-demo",
+    "asar": true
+  },
+  "dependencies": {
+    "cvtrace": "github:jay3sh/cvtrace"
   }
 }

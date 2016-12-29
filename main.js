@@ -7,6 +7,17 @@ const BrowserWindow = electron.BrowserWindow
 const path = require('path')
 const url = require('url')
 
+
+const fork = require('child_process').fork;
+let workerHandle = fork(require.resolve('./worker'));
+
+workerHandle.on('exit', exitCode => {
+  console.log('Worker exited', exitCode);
+});
+
+workerHandle.send({task:'dig'});
+
+
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
 let mainWindow
@@ -45,6 +56,7 @@ app.on('window-all-closed', function () {
   // to stay active until the user quits explicitly with Cmd + Q
   if (process.platform !== 'darwin') {
     app.quit()
+    workerHandle.send({task:'quit'});
   }
 })
 
